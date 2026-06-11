@@ -139,128 +139,142 @@ ClubListModels? selectedClub;
       backgroundColor: Color(0XFFA3D0D4),
      
       body: 
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _searchField(),
-          SizedBox(height: 40,),
-          Padding(
-           padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: const Text(
-            'Club',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+      
+      SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0, bottom: 8.0, left: 15.0, right: 15.0),
+              child: Image.asset(
+                'assets/images/ClubMatcherBanner.png',
+                height: 300,
+                width: 500,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-              ),
-              SizedBox(width: 15,),
-              Expanded(
-                
-                child: clubs.isEmpty
-                ?const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.blue,
-                  ),)
-                // height: 500,
-                // color: Colors.blue,
-                : Container(
-                  
-                  child: ListView.separated(
-                    itemCount: DisplayClub.length,
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    padding: EdgeInsets.symmetric(
-                    horizontal: 25,
-                    ),
-                    separatorBuilder: (context, index) => SizedBox(height: 25,),
-                    
-                    itemBuilder: (context, index) {
-                      final currentClub = DisplayClub[index];
-
-                      final bool isExpanded = selectedClub?.ClubName == currentClub.ClubName;
-                      return Column(
-                      children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (isExpanded) {
-                              selectedClub = null; //program to close the club tab when the user clicked again
-                            }else{
-                              selectedClub = currentClub;
-                            }
-                          });
-                        },
-                       child: Container(
-                        height: 80, 
-                       
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 50, 
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                              ),
-                              
-                            ),
-                            const SizedBox(width: 16),
-                            // text Value layout area
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    DisplayClub[index].ClubName,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    'Room ${DisplayClub[index].Room}',
-                                    style: TextStyle(
-                                      color: Colors.grey.shade700,
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                  
-                                ],
-                              ),
-                            ),
-                            Icon(
-                              isExpanded? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                              color: Colors.grey,
-                            )
-                          ],
-                        ),
-                      )
-                    ),
-                    //the detail tab for the clicked club
-                    if(isExpanded) _buildInlineDetailTab(currentClub),
-                  ],
-               );
-
-                    },
-                  ),
-                ),
-              ),
-        ],
         
-      
-      
-      
+            _searchField(),
+            SizedBox(height: 40,),
+            Padding(
+             padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: const Text(
+              'Club',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+                ),
+                SizedBox(width: 15,),
+                
+                  
+                clubs.isEmpty
+                  ?const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),)
+                  // height: 500,
+                  // color: Colors.blue,
+                  : Container(
+                    
+                    child: ListView.separated(
+
+                      itemCount: DisplayClub.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      padding: EdgeInsets.symmetric(
+                      horizontal: 25,
+                      ),
+                      separatorBuilder: (context, index) => SizedBox(height: 25,),
+                      
+                      itemBuilder: (context, index) {
+                        final currentClub = DisplayClub[index];
+        
+                        final bool isExpanded = selectedClub?.ClubName == currentClub.ClubName;
+                        return Column(
+                        children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              if (isExpanded) {
+                                selectedClub = null; //program to close the club tab when the user clicked again
+                              }else{
+                                selectedClub = currentClub;
+                              }
+                            });
+                          },
+                         child: Container(
+                          height: 80, 
+                         
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 50, 
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                ),
+                                
+                              ),
+                              const SizedBox(width: 16),
+                              // text Value layout area
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      DisplayClub[index].ClubName,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      'Room ${DisplayClub[index].Room}',
+                                      style: TextStyle(
+                                        color: Colors.grey.shade700,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                    
+                                  ],
+                                ),
+                              ),
+                              Icon(
+                                isExpanded? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                                color: Colors.grey,
+                              )
+                            ],
+                          ),
+                        )
+                      ),
+                      //the detail tab for the clicked club
+                      if(isExpanded) _buildInlineDetailTab(currentClub),
+                    ],
+                 );
+        
+                      },
+                    ),
+                  ),
+                
+          ],
+          
+        
+        
+        
+        ),
       ),
       
       floatingActionButton: 
@@ -429,17 +443,19 @@ Widget _buildInlineDetailTab(ClubListModels club) {
         setState(() {});
         },
         child: Container(
+           width: 150,
+           height: 100,
           margin: const EdgeInsets.all(10),
-          alignment: Alignment.topRight,
+          alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.grey,
           ),
-          child: SvgPicture.asset('assets/icons/CreateAccountButton.svg', 
-                                  colorFilter: _isHover
-                                  ? const ColorFilter.mode(Colors.black38, BlendMode.srcATop)
-                                  :null,
-                                  ),
+          child: Text("Create Account",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      )
+                      ),
             ),
           )
           
@@ -453,13 +469,18 @@ Widget _buildInlineDetailTab(ClubListModels club) {
           },
           child: 
           Container(
+            width: 100,
+            height: 100,
             margin: const EdgeInsets.all(10),
-            alignment: Alignment.topLeft,
+            alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.grey,
             ),
-            child: SvgPicture.asset('assets/icons/SignOutButton.svg'),
+            child: Text("Sign Out",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        )),
 
           ),
         ),
@@ -480,13 +501,19 @@ Widget _buildInlineDetailTab(ClubListModels club) {
         child: 
       
         Container(
+          width: 100,
+          height: 100,
           margin: const EdgeInsets.all(10),
-          alignment: Alignment.topRight,
+          alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Colors.blue,
+            color: Colors.grey,
           ),
-          child: SvgPicture.asset('assets/icons/SignInButton.svg'),
+          child: Text("Sign In",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      )
+                      ),
           
         )
    
@@ -502,6 +529,7 @@ Widget _buildInlineDetailTab(ClubListModels club) {
     
   );
   }
+
 }
 
 
