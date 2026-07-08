@@ -3,15 +3,141 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:async';
-   
+
+String Id = "";
+
+class SchoolIdPage extends StatefulWidget {
+  const SchoolIdPage ({super.key});
+
+  @override
+  State<SchoolIdPage> createState() => _SchoolIdPageState();
+}
+
+class _SchoolIdPageState extends State<SchoolIdPage> {
+  @override
+  void initState() {
+    super.initState();
+    print("SchoolID page initState");
+  }
+  final TextEditingController SchoolIdController = TextEditingController();
+  bool _isLoading = false;
+    void setSchoolId() async {
+    final  SchoolId = SchoolIdController.text.trim();
+    Id = SchoolId;
+    if(SchoolId.isEmpty) {
+      _showSnackBar("Please input your school ID", Colors.orange);
+      return;
+    }
+    setState (() => _isLoading = true);
+    try {
+      final List<dynamic> data = await Supabase.instance.client.from('ClubMatcher').select('schoolID').eq('schoolID', SchoolId).limit(1);
+      if(data.isNotEmpty) {
+        _showSnackBar ("School ID entered properly", Colors.blue);
+        if(mounted) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),));
+        }
+      } else {
+        _showSnackBar("Entered School ID does not exist", Colors.red);
+      }
+    } catch (e) {
+      _showSnackBar("Connection Error, please check your wi-fi", Colors.red);
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  void _showSnackBar(String message, Color color) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: color)
+    );
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Welcome!"),
+        backgroundColor: Colors.grey,
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: 
+        Column(
+          
+          children: [
+
+            Container(
+              width: 500,
+              height: 400,
+              margin: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(12.0),
+                border: Border.all(color: Colors.grey, width: 3.0),
+              ),
+              child: 
+              Column(
+              children: [ 
+              Padding(
+                padding: const EdgeInsets.only(top: 50, right: 8.0, left: 8.0, bottom: 50,),
+                child: TextField(controller: SchoolIdController, decoration: const InputDecoration(labelText: "Enter your School ID",)),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Image.asset('assets/images/SchoolIdImage.png',
+                height: 200,
+                width: 200,
+                
+                ),
+              ), 
+              ],
+              
+              )
+              
+            ),
+            GestureDetector(
+              onTap: () {
+                setSchoolId();
+              },
+              child: Container(
+                padding : EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: const Text("Enter"),
+                )
+              ),
+               
+              
+          ],
+        ),
+        
+        )
+      
+      );
+  }
+}
+class HomePage extends StatefulWidget {
+  const HomePage ({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+
+}
 
 class _HomePageState extends State<HomePage> {
+  // @override 
+  // void initState() {
+  //   super.initState();
+  //   print("HomePage initState");
+  // }
  bool _isLoggedIn = false;
   List<ClubListModels> clubs  = [];
   late final StreamSubscription<AuthState> _authSubscription;
   Future <void> _getClubs()  async {
     try{
-      final fetchedClubs = await ClubListModels.getClubs();
+      final fetchedClubs = await ClubListModels.getClubs(Id);
 
       print("SUCCESSFULLY FETCHED COUNT: ${fetchedClubs.length}");
 
@@ -81,6 +207,7 @@ class _HomePageState extends State<HomePage> {
                     'meeting_time': time,
                     'room': room,
                     'description': desc,
+                    'schoolID' : Id,
                   });
 
                   Navigator.pop(context);
@@ -149,7 +276,7 @@ ClubListModels? selectedClub;
               child: Image.asset(
                 'assets/images/ClubMatcherBanner.png',
                 height: 300,
-                width: 500,
+                width: 450,
                 fit: BoxFit.cover,
               ),
             ),
@@ -632,14 +759,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         )
       );
   }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage ({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-
 }
 
 

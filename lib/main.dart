@@ -1,11 +1,6 @@
 import 'package:club_matcher/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'dart:async'; // <--- Make sure this is at the top of your file! 
-import 'dart:io'; // Needed for File visual checking on mobile 
-import 'package:flutter/foundation.dart'; // Needed for kIsWeb check 
-import 'dart:typed_data'; // Needed for Uint8List 
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +22,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      home: HomePage()
+      home: SchoolIdPage(),
+
+      routes: {
+        '/unlock': (context) => const SchoolIdPage(),
+        '/home': (context) => const HomePage(),
+      },
     );
   }
 }

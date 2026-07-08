@@ -27,9 +27,9 @@ class ClubListModels {
       );
   }
   
-  static Future <List<ClubListModels>> getClubs() async {
+  static Future <List<ClubListModels>> getClubs(String schoolid) async {
     try{
-      final List <dynamic> response = await Supabase.instance.client.from('ClubMatcher').select();
+      final List <dynamic> response = await Supabase.instance.client.from('ClubMatcher').select().eq('schoolID', schoolid);
 
       return response.map((row) {
         return ClubListModels.fromJson(row as Map<String, dynamic>);
