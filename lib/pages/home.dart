@@ -372,7 +372,7 @@ ClubListModels? selectedClub;
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: SvgPicture.asset('assets/icons/${DisplayClub[index].Club_types}Icons.svg'),
+                                  child: SvgPicture.asset('assets/icons/${DisplayClub[index].Club_types}Icon.svg'),
                                   )
                                 
                               ),

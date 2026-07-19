@@ -27,7 +27,7 @@ class ClubListModels {
       Time: json['meeting_time'] ?? 'Time TBD', 
       Room: json['room']?? 'Room TBD', 
       Description: json['description'] ?? 'N/A',
-      Club_types: json['club_types'],
+      Club_types: json['club_types'] ?? 'Others',
 
       );
   }
