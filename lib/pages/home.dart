@@ -159,6 +159,9 @@ class _HomePageState extends State<HomePage> {
     final TextEditingController timeController = TextEditingController();
     final TextEditingController descController = TextEditingController();
 
+    String? selectedClubTypes;
+    final List<String> clubTypes = ['Academics', 'Arts', 'Sports', 'Volunteers', 'Games', 'Others'];
+
     showDialog(
       context: context,
       builder: (context) {
@@ -184,6 +187,22 @@ class _HomePageState extends State<HomePage> {
                   controller: descController,
                   decoration: const InputDecoration(labelText: 'Description'),
                 ),
+                const SizedBox(height: 8),
+                DropdownButtonFormField<String>(
+                  value: selectedClubTypes,
+                  decoration: const InputDecoration(labelText: 'Types'),
+                  items: clubTypes.map((String category) {
+                    return DropdownMenuItem<String>(
+                      value: category,
+                      child: Text(category),
+                      );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedClubTypes = newValue;
+                    });
+                  }
+                  ),
               ],
              ),
             ),
@@ -207,6 +226,7 @@ class _HomePageState extends State<HomePage> {
                     'meeting_time': time,
                     'room': room,
                     'description': desc,
+                    'club_types' : selectedClubTypes,
                     'schoolID' : Id,
                   });
 
@@ -350,6 +370,10 @@ ClubListModels? selectedClub;
                                   color: Colors.white,
                                   shape: BoxShape.circle,
                                 ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SvgPicture.asset('assets/icons/${DisplayClub[index].Club_types}Icons.svg'),
+                                  )
                                 
                               ),
                               const SizedBox(width: 16),

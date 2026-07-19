@@ -7,13 +7,16 @@ class ClubListModels {
   String Time;
   String Room;
   String Description;
+  String Club_types;
 
   ClubListModels ({
     required this.ClubName,
     required this.Time,
     required this.Room, 
     required this.Description,
+    required this.Club_types,
   });
+
 
   static List <ClubListModels> result = [];
   static List<ClubListModels> temp = [];
@@ -24,6 +27,8 @@ class ClubListModels {
       Time: json['meeting_time'] ?? 'Time TBD', 
       Room: json['room']?? 'Room TBD', 
       Description: json['description'] ?? 'N/A',
+      Club_types: json['club_types'],
+
       );
   }
   
