@@ -283,7 +283,7 @@ ClubListModels? selectedClub;
     return Scaffold(
       appBar: appBar(),
       
-      backgroundColor: Color(0XFFA3D0D4),
+      backgroundColor: Color.fromARGB(255, 246, 238, 203),
      
       body: 
       
@@ -340,7 +340,7 @@ ClubListModels? selectedClub;
                       itemBuilder: (context, index) {
                         final currentClub = DisplayClub[index];
         
-                        final bool isExpanded = selectedClub?.ClubName == currentClub.ClubName;
+                        final bool isExpanded = selectedClub?.ID == currentClub.ID;
                         return Column(
                         children: [
                         GestureDetector(
@@ -447,13 +447,13 @@ Widget _buildInlineDetailTab(ClubListModels club) {
     margin:const EdgeInsets.only(top: 4),
     padding: const EdgeInsets.all(20),
     decoration: BoxDecoration(
-      color: Colors.blue.withOpacity(0.08),
+      color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.08),
       borderRadius: const BorderRadius.only(
         bottomLeft: Radius.circular(15),
         bottomRight: Radius.circular(15),
 
       ),
-      border: Border.all(color: Colors.blue.withOpacity(0.2)),
+      border: Border.all(color: const Color.fromARGB(255, 161, 161, 161).withOpacity(0.2)),
 
     ),
     child: Column(
@@ -464,7 +464,7 @@ Widget _buildInlineDetailTab(ClubListModels club) {
             const Icon (Icons.meeting_room_outlined, size: 18, color: Colors.blue),
             const SizedBox(width: 8),
             Text(
-              "Full location DetailsL Room ${club.Room}",
+              "Full location Details: Room ${club.Room}",
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
@@ -558,7 +558,7 @@ Widget _buildInlineDetailTab(ClubListModels club) {
         fontWeight: FontWeight.bold,
       ),
     ),
-    backgroundColor: Color(0XFF6B91C9),
+    backgroundColor: Color.fromARGB(255, 255, 214, 9),
     centerTitle: true,
     elevation: 0.0,
     leading: 
@@ -600,11 +600,12 @@ Widget _buildInlineDetailTab(ClubListModels club) {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Colors.grey,
+            color: const Color.fromARGB(255, 40, 40, 40),
           ),
           child: Text("Create Account",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       )
                       ),
             ),
@@ -658,11 +659,12 @@ Widget _buildInlineDetailTab(ClubListModels club) {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Colors.grey,
+            color: const Color.fromARGB(255, 40, 40, 40),
           ),
           child: Text("Sign In",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       )
                       ),
           

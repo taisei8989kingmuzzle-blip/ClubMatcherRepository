@@ -8,6 +8,7 @@ class ClubListModels {
   String Room;
   String Description;
   String Club_types;
+  int ID;
 
   ClubListModels ({
     required this.ClubName,
@@ -15,6 +16,7 @@ class ClubListModels {
     required this.Room, 
     required this.Description,
     required this.Club_types,
+    required this.ID,
   });
 
 
@@ -28,7 +30,7 @@ class ClubListModels {
       Room: json['room']?? 'Room TBD', 
       Description: json['description'] ?? 'N/A',
       Club_types: json['club_types'] ?? 'Others',
-
+      ID: json['id'] ?? 0,
       );
   }
   
